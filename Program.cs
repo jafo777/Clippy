@@ -1,4 +1,5 @@
 ﻿using Microsoft.Owin.Hosting;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace ClippyAPI
 {
     public class Program
     {
+        [STAThreadAttribute]
         static void Main()
         {
             string baseAddress = "http://localhost:9000/";
@@ -20,7 +22,13 @@ namespace ClippyAPI
                 // Create HttpClient and make a request to api/values 
                 HttpClient client = new HttpClient();
 
-                var response = client.GetAsync(baseAddress + "api/values/").Result;
+
+                var content = new FormUrlEncodedContent(new[] {
+                    new KeyValuePair<string, string>("", "login")
+                });
+
+                var POST = client.PostAsync(baseAddress + "api/clippy/", content);
+                var response = client.GetAsync(baseAddress + "api/clippy/").Result;
 
                 Console.WriteLine(response);
                 Console.WriteLine(response.Content.ReadAsStringAsync().Result);

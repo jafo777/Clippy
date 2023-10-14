@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace ClippyAPI
 {
+
     public class Startup
     {
         // This code configures Web API. The Startup class is specified as a type
